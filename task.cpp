@@ -158,6 +158,13 @@ int main()
 
 		PrintAverageVals(eprocess_type::by_rows, average_vals_in_rows, numb_rows);
 		PrintAverageVals(eprocess_type::by_cols, average_vals_in_cols, numb_cols);
+
+		delete[] average_vals_in_cols;
+		delete[] average_vals_in_rows;
+		for (size_t i = 0; i < numb_rows; ++i)
+			delete[] matrix[i];
+		delete[] matrix;
+
 	}
 	catch (std::exception& except)
 	{
@@ -165,6 +172,7 @@ int main()
 		except.what();
 		status = ERROR_STATUS;
 	}
+
 
 	return status;
 }
