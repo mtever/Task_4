@@ -6,8 +6,8 @@
 #include <cilk/cilk.h>
 #include <cilk/reducer_opadd.h>
 
-/// перечисление, определяющее как будет происходить вычисление
-/// средних значений матрицы: по строкам или по столбцам
+/// ГЇГҐГ°ГҐГ·ГЁГ±Г«ГҐГ­ГЁГҐ, Г®ГЇГ°ГҐГ¤ГҐГ«ГїГѕГ№ГҐГҐ ГЄГ ГЄ ГЎГіГ¤ГҐГІ ГЇГ°Г®ГЁГ±ГµГ®Г¤ГЁГІГј ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ
+/// Г±Г°ГҐГ¤Г­ГЁГµ Г§Г­Г Г·ГҐГ­ГЁГ© Г¬Г ГІГ°ГЁГ¶Г»: ГЇГ® Г±ГІГ°Г®ГЄГ Г¬ ГЁГ«ГЁ ГЇГ® Г±ГІГ®Г«ГЎГ¶Г Г¬
 enum class eprocess_type
 {
 	by_rows = 0,
@@ -25,9 +25,9 @@ void InitMatrix(double** matrix, const size_t numb_rows, const size_t numb_cols)
 	}
 }
 
-/// Функция PrintMatrix() печатает элементы матрицы <i>matrix</i> на консоль;
-/// numb_rows - количество строк в исходной матрице <i>matrix</i>
-/// numb_cols - количество столбцов в исходной матрице <i>matrix</i>
+/// Г”ГіГ­ГЄГ¶ГЁГї PrintMatrix() ГЇГҐГ·Г ГІГ ГҐГІ ГЅГ«ГҐГ¬ГҐГ­ГІГ» Г¬Г ГІГ°ГЁГ¶Г» <i>matrix</i> Г­Г  ГЄГ®Г­Г±Г®Г«Гј;
+/// numb_rows - ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ Гў ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶ГҐ <i>matrix</i>
+/// numb_cols - ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ®Г«ГЎГ¶Г®Гў Гў ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶ГҐ <i>matrix</i>
 void PrintMatrix(double** matrix, const size_t numb_rows, const size_t numb_cols)
 {
 	printf("Generated matrix:\n");
@@ -41,14 +41,14 @@ void PrintMatrix(double** matrix, const size_t numb_rows, const size_t numb_cols
 	}
 }
 
-/// Функция FindAverageValues() находит средние значения в матрице <i>matrix</i>
-/// по строкам, либо по столбцам в зависимости от значения параметра <i>proc_type</i>;
-/// proc_type - признак, в зависимости от которого средние значения вычисляются 
-/// либо по строкам, либо по стобцам исходной матрицы <i>matrix</i>
-/// matrix - исходная матрица
-/// numb_rows - количество строк в исходной матрице <i>matrix</i>
-/// numb_cols - количество столбцов в исходной матрице <i>matrix</i>
-/// average_vals - массив, куда сохраняются вычисленные средние значения
+/// Г”ГіГ­ГЄГ¶ГЁГї FindAverageValues() Г­Г ГµГ®Г¤ГЁГІ Г±Г°ГҐГ¤Г­ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГї Гў Г¬Г ГІГ°ГЁГ¶ГҐ <i>matrix</i>
+/// ГЇГ® Г±ГІГ°Г®ГЄГ Г¬, Г«ГЁГЎГ® ГЇГ® Г±ГІГ®Г«ГЎГ¶Г Г¬ Гў Г§Г ГўГЁГ±ГЁГ¬Г®Г±ГІГЁ Г®ГІ Г§Г­Г Г·ГҐГ­ГЁГї ГЇГ Г°Г Г¬ГҐГІГ°Г  <i>proc_type</i>;
+/// proc_type - ГЇГ°ГЁГ§Г­Г ГЄ, Гў Г§Г ГўГЁГ±ГЁГ¬Г®Г±ГІГЁ Г®ГІ ГЄГ®ГІГ®Г°Г®ГЈГ® Г±Г°ГҐГ¤Г­ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГўГ»Г·ГЁГ±Г«ГїГѕГІГ±Гї 
+/// Г«ГЁГЎГ® ГЇГ® Г±ГІГ°Г®ГЄГ Г¬, Г«ГЁГЎГ® ГЇГ® Г±ГІГ®ГЎГ¶Г Г¬ ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶Г» <i>matrix</i>
+/// matrix - ГЁГ±ГµГ®Г¤Г­Г Гї Г¬Г ГІГ°ГЁГ¶Г 
+/// numb_rows - ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ Гў ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶ГҐ <i>matrix</i>
+/// numb_cols - ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ®Г«ГЎГ¶Г®Гў Гў ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶ГҐ <i>matrix</i>
+/// average_vals - Г¬Г Г±Г±ГЁГў, ГЄГіГ¤Г  Г±Г®ГµГ°Г Г­ГїГѕГІГ±Гї ГўГ»Г·ГЁГ±Г«ГҐГ­Г­Г»ГҐ Г±Г°ГҐГ¤Г­ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГї
 void FindAverageValues(eprocess_type proc_type, double** matrix, const size_t numb_rows, const size_t numb_cols, double* average_vals)
 {
 	switch (proc_type)
@@ -69,14 +69,14 @@ void FindAverageValues(eprocess_type proc_type, double** matrix, const size_t nu
 	}
 	case eprocess_type::by_cols:
 	{
-		for (size_t j = 0; j < numb_cols; ++j)
+		cilk_for (size_t j = 0; j < numb_cols; ++j)
 		{
-			double sum(0.0);
-			for (size_t i = 0; i < numb_rows; ++i)
+			cilk::reducer_opadd<double>sum(0.0);
+			cilk_for (size_t i = 0; i < numb_rows; ++i)
 			{
 				sum += matrix[i][j];
 			}
-			average_vals[j] = sum / numb_rows;
+			average_vals[j] = sum.get_value() / numb_rows;
 		}
 		break;
 	}
@@ -87,12 +87,13 @@ void FindAverageValues(eprocess_type proc_type, double** matrix, const size_t nu
 	}
 }
 
-/// Функция PrintAverageVals() печатает элементы массива <i>average_vals</i> на консоль;
-/// proc_type - признак, отвечающий за то, как были вычислены 
-/// средние значения исходной матрицы по строкам или по столбцам
-/// average_vals - массив, хранящий средние значения исходной матрицы,
-/// вычисленные по строкам или по столбцам
-/// dimension - количество элементов в исходной массиве <i>average_vals</i>
+
+/// Г”ГіГ­ГЄГ¶ГЁГї PrintAverageVals() ГЇГҐГ·Г ГІГ ГҐГІ ГЅГ«ГҐГ¬ГҐГ­ГІГ» Г¬Г Г±Г±ГЁГўГ  <i>average_vals</i> Г­Г  ГЄГ®Г­Г±Г®Г«Гј;
+/// proc_type - ГЇГ°ГЁГ§Г­Г ГЄ, Г®ГІГўГҐГ·Г ГѕГ№ГЁГ© Г§Г  ГІГ®, ГЄГ ГЄ ГЎГ»Г«ГЁ ГўГ»Г·ГЁГ±Г«ГҐГ­Г» 
+/// Г±Г°ГҐГ¤Г­ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶Г» ГЇГ® Г±ГІГ°Г®ГЄГ Г¬ ГЁГ«ГЁ ГЇГ® Г±ГІГ®Г«ГЎГ¶Г Г¬
+/// average_vals - Г¬Г Г±Г±ГЁГў, ГµГ°Г Г­ГїГ№ГЁГ© Г±Г°ГҐГ¤Г­ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г ГІГ°ГЁГ¶Г»,
+/// ГўГ»Г·ГЁГ±Г«ГҐГ­Г­Г»ГҐ ГЇГ® Г±ГІГ°Г®ГЄГ Г¬ ГЁГ«ГЁ ГЇГ® Г±ГІГ®Г«ГЎГ¶Г Г¬
+/// dimension - ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў Гў ГЁГ±ГµГ®Г¤Г­Г®Г© Г¬Г Г±Г±ГЁГўГҐ <i>average_vals</i>
 void PrintAverageVals(eprocess_type proc_type, double* average_vals, const size_t dimension)
 {
 	switch (proc_type)
